@@ -7,7 +7,7 @@ package dao;
 import adt.*;
 import entity.Application;
 import entity.Job;
-import entity.ApplicantManagementEntity;
+import entity.Applicant;
 /**
  *
  * @author jians
@@ -16,8 +16,8 @@ public class ApplicationInitializer {
     Initializer jobInitializer = new Initializer();
     ApplicantManagementDAO applicantInitializer = new ApplicantManagementDAO();
     
-    ListInterface<Job> jobList = jobInitializer.initializeJobs();
-    ListInterface<ApplicantManagementEntity> applicantList = applicantInitializer.getApplicantsDatabase();
+    ListInterface<Job> jobList = jobInitializer.retrieveJobs();
+    ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
     
     public ListInterface<Application> initializeApplications() {
         ListInterface<Application> applicationList = new DoublyLinkedList<>();
