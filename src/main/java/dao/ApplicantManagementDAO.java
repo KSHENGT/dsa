@@ -28,6 +28,12 @@ public class ApplicantManagementDAO {
         return applicantsDatabase;
     }
 
+    public ListInterface<Applicant> initializeApplicants() {
+        applicantsDatabase.add(new Applicant("Alice", 30, "alice@example.com", "Java, Python", "Kuala Lumpur", "Software Engineer", 2, 2000, new Date()));
+        applicantsDatabase.add(new Applicant("Bob", 20, "bob@example.com", "C++, SQL", "Penang", "Data Analyst", 3, 2000, new Date()));
+        return applicantsDatabase;
+    }
+    
     public void HardCode() {
         applicantsDatabase.add(new Applicant("Alice", 30, "alice@example.com", "Java, Python", "Kuala Lumpur", "Software Engineer", 2, 2000, new Date()));
         applicantsDatabase.add(new Applicant("Bob", 20, "bob@example.com", "C++, SQL", "Penang", "Data Analyst", 3, 2000, new Date()));
