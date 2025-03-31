@@ -11,11 +11,11 @@ import java.util.*;
  */
 import adt.DoublyLinkedList;
 import adt.ListInterface;
-import entity.ApplicantManagementEntity;
+import entity.Applicant;
 
 public class ApplicantManagementDAO {
 
-    private ListInterface<ApplicantManagementEntity> applicantsDatabase = new DoublyLinkedList<>();
+    public static ListInterface<Applicant> applicantsDatabase = new DoublyLinkedList<>();
 
     public ApplicantManagementDAO() {
         HardCode();
@@ -23,12 +23,9 @@ public class ApplicantManagementDAO {
     }
 
     public void HardCode() {
-        applicantsDatabase.add(new ApplicantManagementEntity("Alice", 30, "alice@example.com", Arrays.asList("Java", "Python"), "Kuala Lumpur", "Software Engineer", 2, new Date()));
-        applicantsDatabase.add(new ApplicantManagementEntity("Bob", 20, "bob@example.com", Arrays.asList("C++", "SQL"), "Penang", "Data Analyst", 3, new Date()));
+        applicantsDatabase.add(new Applicant("Alice", 30, "alice@example.com", "Java, Python", "Kuala Lumpur", "Software Engineer", 2, 2000, new Date()));
+        applicantsDatabase.add(new Applicant("Bob", 20, "bob@example.com", "C++, SQL", "Penang", "Data Analyst", 3, 2000, new Date()));
     }
-
-    public ListInterface<ApplicantManagementEntity> getApplicantsDatabase() {
-        return applicantsDatabase;
-    }
+    
 
 }

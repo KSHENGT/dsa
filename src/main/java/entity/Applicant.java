@@ -9,21 +9,22 @@ import java.util.*;
  *
  * @author Hong Yip
  */
-public class ApplicantManagementEntity {
+public class Applicant {
 
     private static int idCounter = 1;  
     String applicantID;
     String name;
     int age;
     String email;
-    List<String> skills;
+    String skills;
     String location;
     String desiredJobType;
     int experience;
+    double expectedSalary;
     String status;
     Date dateApplied;
 
-    public ApplicantManagementEntity(String name, int age, String email, List<String> skills, String location, String desiredJobType, int experience, Date dateApplied) {
+    public Applicant(String name, int age, String email, String skills, String location, String desiredJobType, int experience, double expectedSalary, Date dateApplied) {
         this.applicantID = String.format("A%03d", idCounter++);
         this.name = name;
         this.age = age;
@@ -32,6 +33,7 @@ public class ApplicantManagementEntity {
         this.location = location;
         this.desiredJobType = desiredJobType;
         this.experience = experience;
+        this.expectedSalary = expectedSalary;
         this.status = "pending";
         this.dateApplied = dateApplied;
     }
@@ -68,11 +70,11 @@ public class ApplicantManagementEntity {
         this.email = email;
     }
 
-    public List<String> getSkills() {
+    public String getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {
+    public void setSkills(String skills) {
         this.skills = skills;
     }
 
@@ -99,6 +101,14 @@ public class ApplicantManagementEntity {
     public void setExperience(int experience) {
         this.experience = experience;
     }
+    
+    public double getExpectedSalary() {
+        return expectedSalary;
+    }
+
+    public void setExpectedSalary(double expectedSalary) {
+        this.expectedSalary = expectedSalary;
+    }
 
     public String getStatus() {
         return status;
@@ -118,8 +128,7 @@ public class ApplicantManagementEntity {
 
     @Override
     public String toString() {
-        return "ApplicantManagementEntity{" + "applicantID=" + applicantID + ", name=" + name + ", age=" + age + ", email=" + email + ", skills=" + skills + ", location=" + location + ", desiredJobType=" + desiredJobType + ", experience=" + experience + ", status=" + status + ", dateApplied=" + dateApplied + '}';
+        return "ApplicantManagementEntity{" + "applicantID=" + applicantID + ", name=" + name + ", age=" + age + ", email=" + email + ", skills=" + skills + ", location=" + location + ", desiredJobType=" + desiredJobType + ", experience=" + experience + ", expectedSalary=" + expectedSalary + ", status=" + status + ", dateApplied=" + dateApplied + '}';
     }
-
 
 }
