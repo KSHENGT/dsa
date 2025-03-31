@@ -9,9 +9,9 @@ public class Application implements Serializable {
     private Date applicationDate;
     private String status;
     private Job job;
-    private ApplicantManagementEntity applicant;
+    private Applicant applicant;
     
-    public Application(String applicationID, String status, Job job, ApplicantManagementEntity applicant) {
+    public Application(String applicationID, String status, Job job, Applicant applicant) {
         this.applicationID = applicationID;
 //        this.applicationDate = new Date();
         this.status = status;
@@ -36,7 +36,7 @@ public class Application implements Serializable {
         return job;
     }
 
-    public ApplicantManagementEntity getApplicant() {
+    public Applicant getApplicant() {
         return applicant;
     }
 
@@ -57,7 +57,7 @@ public class Application implements Serializable {
         this.job = job;
     }
 
-    public void setApplicant(ApplicantManagementEntity applicant) {
+    public void setApplicant(Applicant applicant) {
         this.applicant = applicant;
     }
 
