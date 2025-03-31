@@ -54,13 +54,10 @@ public class Initializer {
         jobsList = updatedJobs;  // Update the static list
     }
     
-<<<<<<< Updated upstream
-
-=======
 //    public static void main(String[] args) {
 //    Initializer initializer = new Initializer();
 //    ListInterface<Job> jobslist = initializer.initializeJobs();
 //    System.out.println("\nJobs:\n" + jobslist);
 //    }
->>>>>>> Stashed changes
+
 }
