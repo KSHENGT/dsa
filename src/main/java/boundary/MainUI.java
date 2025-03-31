@@ -10,8 +10,7 @@ import java.util.Scanner;
  *
  * @author Hong Yip
  */
-public class ApplicantManagementUI {
-
+public class MainUI {
     Scanner scanner = new Scanner(System.in);
 
     public static void displayHeader(String title) {
@@ -25,20 +24,19 @@ public class ApplicantManagementUI {
     }
 
     public int getChoice() {
-        int choice = 0;
-        System.out.println("\n1. Create Applicant Profile");
-        System.out.println("2. Update Applicant Profile");
-        System.out.println("3. Remove Applicant Profile");
-        System.out.println("4. Filter Applicants (by criteria)");
-        System.out.println("5. View All Applicants");
-        System.out.println("6. Back to Main Function");
+        int choice;
+        System.out.println("\n1. Student Operations");
+        System.out.println("2. Job Operations");
+        System.out.println("3. Matching Operation");
+        System.out.println("4. Interview Operation");
+        System.out.println("5. Reports");
         System.out.println("0. Exit\n\n");
 
         while (true) {
             try {
                 System.out.print("Please select an option > ");
                 choice = Integer.parseInt(scanner.nextLine());
-                if ((choice >= 1 && choice <= 6) || choice == 0) {
+                if ((choice >= 1 && choice < 6) || choice == 0) {
                     break;
                 } else {
                     System.out.println("\nInvalid option! Please enter a number between 1 and 5.\n");
@@ -49,5 +47,4 @@ public class ApplicantManagementUI {
         }
         return choice;
     }
-
 }
