@@ -15,7 +15,7 @@ import entity.*;
  */
 public class ApplicationManagement {
     private ListInterface<Job> jobList = new DoublyLinkedList<>();
-    private ListInterface<ApplicantManagementEntity> applicantList = new DoublyLinkedList<>();
+    private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
     private ListInterface<Application> applicationList = new DoublyLinkedList<>();
     
     private Initializer jobInitializer = new Initializer();
@@ -25,7 +25,7 @@ public class ApplicationManagement {
     
     public ApplicationManagement() {
         applicationList = applicationInitializer.initializeApplications();
-        jobList = jobInitializer.initializeJobs();
+        jobList = jobInitializer.retrieveJobs();
     }
     
     public void runApplicationManagement() {
