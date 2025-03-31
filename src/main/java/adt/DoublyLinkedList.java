@@ -79,21 +79,27 @@ public class DoublyLinkedList<T> implements ListInterface<T>, Serializable {
     @Override
     public T remove(int givenPosition) {
         T result = null;
-        
-        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-            if (givenPosition == 1) {
+
+        if (givenPosition >= 1 && givenPosition <= numberOfEntries) {
+            if (givenPosition == 1) { // Removing first node
                 result = firstNode.data;
-                firstNode.next.prev = null;
+                if (firstNode.next != null) {
+                    firstNode.next.prev = null;
+                }
                 firstNode = firstNode.next;
-            }
-            else {
+            } else {
                 Node nodeBefore = firstNode;
                 for (int i = 1; i < givenPosition - 1; ++i) {
                     nodeBefore = nodeBefore.next;
                 }
-                result = nodeBefore.next.data;
-                nodeBefore.next = nodeBefore.next.next;
-                nodeBefore.next.prev = nodeBefore;
+
+                Node nodeToRemove = nodeBefore.next;
+                result = nodeToRemove.data;
+                nodeBefore.next = nodeToRemove.next;
+
+                if (nodeToRemove.next != null) { // Check before setting prev
+                    nodeToRemove.next.prev = nodeBefore;
+                }
             }
             numberOfEntries--;
         }
