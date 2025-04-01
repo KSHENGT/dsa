@@ -10,6 +10,7 @@ package adt;
  */
 import java.io.Serializable;
 import java.util.Iterator;
+import java.lang.Iterable;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.util.Iterator;
  * @param <T>
  */
 ///helllo testinggggg
-public class DoublyLinkedList<T> implements ListInterface<T>, Serializable {
+public class DoublyLinkedList<T> implements ListInterface<T>, Serializable,Iterable<T> {
 
     private Node firstNode;
     private int numberOfEntries;
@@ -192,11 +193,13 @@ public class DoublyLinkedList<T> implements ListInterface<T>, Serializable {
         }
         return outputStr.toString();
     }
-
-    public Iterator<T> getIterator() {
+    
+    @Override
+    public Iterator<T> iterator() {
         return new LinkedQueueIterator();
     }
 
+    
     private class LinkedQueueIterator implements Iterator<T> {
 
         private Node currentNode;
@@ -218,7 +221,7 @@ public class DoublyLinkedList<T> implements ListInterface<T>, Serializable {
                 return returnData;
            } 
            else {
-                return null;
+                throw new java.util.NoSuchElementException();
            }
         }
         
