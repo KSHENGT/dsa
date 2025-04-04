@@ -19,13 +19,13 @@ public class ApplicationManagement {
     private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
     private ListInterface<Application> applicationList = new DoublyLinkedList<>();
     
-    private Initializer jobInitializer = new Initializer();
+    private JobInitializer jobInitializer = new JobInitializer();
     private ApplicationInitializer applicationInitializer = new ApplicationInitializer();
     
     
     public ApplicationManagement() {
         applicationList = applicationInitializer.initializeApplications();
-        jobList = jobInitializer.retrieveJobs();
+        jobList = jobInitializer.initializeJobs();
     }
     
     public void runApplicationManagement() {
