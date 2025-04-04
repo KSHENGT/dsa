@@ -9,7 +9,7 @@ import java.util.*;
 import adt.ListInterface;
 import java.util.Scanner;
 import boundary.ApplicantManagementUI;
-import dao.ApplicantManagementDAO;
+import dao.ApplicantInitializer;
 import utility.Screen;
 import entity.Applicant;
 
@@ -20,14 +20,14 @@ import entity.Applicant;
 public class ApplicantManagement {
 
     ApplicantManagementUI appMgmtUI = new ApplicantManagementUI();
-    private ApplicantManagementDAO applicantDAO = new ApplicantManagementDAO();
-    private ListInterface<Applicant> applicant = new DoublyLinkedList<>();
+    private ApplicantInitializer applicantInitializer = new ApplicantInitializer();
+    private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
 
 
     Scanner scanner = new Scanner(System.in);
 
     public ApplicantManagement() {
-        
+        applicantList = applicantInitializer.initializeApplicants();
     }
     public static void main(String[] args) {
         ApplicantManagement app = new ApplicantManagement();
@@ -106,7 +106,7 @@ public class ApplicantManagement {
         }
 
         if (confirmation.equals("Y")) { 
-            applicantDAO.applicantsDatabase.add(new Applicant(name, age, email, skills, location, jobType, experience, expectedSalary, new Date()));
+            applicantList.add(new Applicant(name, age, email, skills, location, jobType, experience, expectedSalary, new Date()));
             System.out.println("Applicant Created Successfully!");
         } else {
             System.out.println("Applicant Not Added.");
@@ -122,8 +122,8 @@ public class ApplicantManagement {
         Screen.clearScreen();
         boolean found = false;
 
-        for (int i = 1; i <= applicantDAO.applicantsDatabase.getNumberOfEntries(); i++) {
-            Applicant applicant = applicantDAO.applicantsDatabase.getEntry(i);
+        for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
+            Applicant applicant = applicantList.getEntry(i);
 
             if (applicant.getApplicantID().equals(id)) { // Find applicant by ID
                 found = true;
@@ -211,7 +211,7 @@ public class ApplicantManagement {
                     applicant.setExperience(tempExperience);
                     applicant.setExpectedSalary(tempSalary);
                     applicant.setStatus(tempStatus);
-                    applicantDAO.applicantsDatabase.replace(i, applicant);
+                    applicantList.replace(i, applicant);
                     System.out.println("Applicant profile updated successfully!");
                     Screen.pauseScreen();
                 } else {
@@ -239,8 +239,8 @@ public class ApplicantManagement {
         boolean found = false;
 
         appMgmtUI.displayHeader("Remove Applicant Profile");
-        for (int i = 1; i <= applicantDAO.applicantsDatabase.getNumberOfEntries(); i++) {
-            Applicant applicant = applicantDAO.applicantsDatabase.getEntry(i);
+        for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
+            Applicant applicant = applicantList.getEntry(i);
 
             if (applicant.getApplicantID().equals(id)) {
                 found = true;
@@ -278,7 +278,7 @@ public class ApplicantManagement {
                 String confirm = scanner.nextLine().trim().toUpperCase();
 
                 if (confirm.equals("Y")) {
-                    applicantDAO.applicantsDatabase.remove(i); // Corrected to remove from DAO list
+                    applicantList.remove(i); // Corrected to remove from DAO list
                     System.out.println("Applicant removed successfully!\n");
                 } else {
                     System.out.println("Removal cancelled.");
@@ -308,7 +308,7 @@ public class ApplicantManagement {
         // Print centered header
         appMgmtUI.displayHeader("Applicant");
 
-        if (applicantDAO.applicantsDatabase.getNumberOfEntries() == 0) {
+        if (applicantList.getNumberOfEntries() == 0) {
             System.out.println("No applicants available.");
         } else {
             int idWidth = 6, nameWidth = 22, ageWidth = 3, emailWidth = 26;
@@ -324,8 +324,8 @@ public class ApplicantManagement {
             System.out.println("-".repeat(214));
 
             // Print each applicant
-            for (int i = 1; i <= applicantDAO.applicantsDatabase.getNumberOfEntries(); i++) {
-                Applicant applicant = applicantDAO.applicantsDatabase.getEntry(i);
+            for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
+                Applicant applicant = applicantList.getEntry(i);
                 System.out.printf(format,
                     applicant.getApplicantID(),
                     applicant.getName(),

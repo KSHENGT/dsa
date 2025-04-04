@@ -2,7 +2,7 @@ package control;
 
 import adt.*;
 import boundary.JobUI;
-import dao.Initializer;
+import dao.JobInitializer;
 import entity.Job;
 
 /**
@@ -11,11 +11,11 @@ import entity.Job;
 public class JobManagement {
 
     private ListInterface<Job> jobList = new DoublyLinkedList<>();
-    private Initializer initializer = new Initializer();
+    private JobInitializer jobInitializer = new JobInitializer();
     private JobUI jobUI = new JobUI();
 
     public JobManagement() {
-        jobList = initializer.retrieveJobs();  // Retrieve jobs from Initializer
+        jobList = jobInitializer.initializeJobs();  // Retrieve jobs from Initializer
     }
 
     public void runJobManagement() {
@@ -33,10 +33,10 @@ public class JobManagement {
                     addNewJob();
                     break;
                 case 3:
-                    updateJob();
+                    // updateJob();
                     break;
                 case 4:
-                    deleteJob();
+                    // deleteJob();
                     break;
                 default:
                     System.out.println("Invalid choice. Please enter a valid option.");
@@ -47,34 +47,35 @@ public class JobManagement {
     public void addNewJob() {
         Job newJob = jobUI.inputJobDetails();
         jobList.add(newJob);
-        initializer.saveJobs(jobList);  // Save the updated list
+        // jobInitializer.saveJobs(jobList);  // Save the updated list
     }
 
-    public void updateJob() {
-        int jobId = jobUI.inputJobId();
-        for (int i = 1; i <= jobList.getNumberOfEntries(); i++) {
-            Job job = jobList.getEntry(i);
-            if (job.getJobId() == jobId) {
-                Job updatedJob = jobUI.inputJobDetails();
-                jobList.replace(i, updatedJob);
-                initializer.saveJobs(jobList);
-                return;
-            }
-        }
-        System.out.println("Job not found.");
-    }
+    //Wrong
+//    public void updateJob() {
+//        int jobId = jobUI.inputJobId();
+//        for (int i = 1; i <= jobList.getNumberOfEntries(); i++) {
+//            Job job = jobList.getEntry(i);
+//            if (jobList.getJobId() == jobId) {
+//                Job updatedJob = jobUI.inputJobDetails();
+//                jobList.replace(i, updatedJob);
+//                // jobInitializer.saveJobs(jobList);
+//                return;
+//            }
+//        }
+//        System.out.println("Job not found.");
+//    }
 
-    public void deleteJob() {
-        int jobId = jobUI.inputJobId();
-        for (int i = 1; i <= jobList.getNumberOfEntries(); i++) {
-            if (jobList.getEntry(i).getJobId() == jobId) {
-                jobList.remove(i);
-                initializer.saveJobs(jobList);
-                return;
-            }
-        }
-        System.out.println("Job not found.");
-    }
+//    public void deleteJob() {
+//        int jobId = jobUI.inputJobId();
+//        for (int i = 1; i <= jobList.getNumberOfEntries(); i++) {
+//            if (jobList.getEntry(i).getJobId() == jobId) {
+//                jobList.remove(i);
+//                jobinitializer.saveJobs(jobList);
+//                return;
+//            }
+//        }
+//        System.out.println("Job not found.");
+//    }
 
     public String getAllJobs() {
         StringBuilder outputStr = new StringBuilder();

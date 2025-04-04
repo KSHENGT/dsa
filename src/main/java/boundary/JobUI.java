@@ -59,7 +59,7 @@ public class JobUI {
 
         int experience = getValidInt("Enter Required Experience (years): ");
 
-        return new Job(jobId, title, description, jobType, salaryRange, company, location, experience);
+        return new Job(title, description, jobType, salaryRange, company, location);
     }
 
     public int inputJobId() {

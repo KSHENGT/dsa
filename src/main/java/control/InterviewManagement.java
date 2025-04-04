@@ -19,8 +19,8 @@ import java.util.Scanner;
 public class InterviewManagement {
 
     private InterviewUI interviewUI = new InterviewUI(); // Changed to InterviewUI
-    private InterviewInitializer interviewDao = new InterviewInitializer(); // Changed to InterviewInitializer
-    private ListInterface<Interview> interview = new DoublyLinkedList<>();
+    private InterviewInitializer interviewInitializer = new InterviewInitializer(); // Changed to InterviewInitializer
+    private ListInterface<Interview> interviewList = new DoublyLinkedList<>();
     private Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -74,7 +74,7 @@ public class InterviewManagement {
             Date interviewDate = parseDate(dateString);
             String interviewID = generateUniqueID(); // Generate unique ID
             Interview interview = new Interview(interviewID, job, applicant, interviewDate, interviewType, interviewLocation, "Scheduled", "");
-            interviewDao.interviewDatabase.add(interview); // Changed to interviewDao
+            interviewList.add(interview); // Changed to interviewDao
             interviewUI.displayScheduleInterviewMessage("Interview scheduled successfully.");
         } catch (IllegalArgumentException e) {
             interviewUI.displayScheduleInterviewMessage("Invalid date format. Please use HH:mm.");
@@ -144,7 +144,7 @@ public class InterviewManagement {
     }
 
     public List<Applicant> filterAndRankSuccessfulApplicants(String filterCriteria) {
-        ListInterface<Interview> allInterviews = interviewDao.getAllInterviews(); // Changed to interviewDao
+        ListInterface<Interview> allInterviews = interviewList; // Changed to interviewDao
         List<Applicant> successfulApplicants = new ArrayList<>();
 
         for (int i = 1; i <= allInterviews.getNumberOfEntries(); i++) {

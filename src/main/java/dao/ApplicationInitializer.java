@@ -13,10 +13,10 @@ import entity.Applicant;
  * @author jians
  */
 public class ApplicationInitializer {
-    Initializer jobInitializer = new Initializer();
-    ApplicantManagementDAO applicantInitializer = new ApplicantManagementDAO();
+    JobInitializer jobInitializer = new JobInitializer();
+    ApplicantInitializer applicantInitializer = new ApplicantInitializer();
     
-    ListInterface<Job> jobList = jobInitializer.retrieveJobs();
+    ListInterface<Job> jobList = jobInitializer.initializeJobs();
     ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
     
     public ListInterface<Application> initializeApplications() {
