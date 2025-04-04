@@ -14,6 +14,7 @@ import entity.*;
  * @author jians
  */
 public class ApplicationManagement {
+    private ApplicationManagementUI applicationManagementUI = new ApplicationManagementUI();
     private ListInterface<Job> jobList = new DoublyLinkedList<>();
     private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
     private ListInterface<Application> applicationList = new DoublyLinkedList<>();
@@ -21,7 +22,6 @@ public class ApplicationManagement {
     private Initializer jobInitializer = new Initializer();
     private ApplicationInitializer applicationInitializer = new ApplicationInitializer();
     
-    private ApplicationManagementUI applicationManagementUI = new ApplicationManagementUI();
     
     public ApplicationManagement() {
         applicationList = applicationInitializer.initializeApplications();
