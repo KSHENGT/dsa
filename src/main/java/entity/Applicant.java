@@ -4,6 +4,7 @@
  */
 package entity;
 import java.util.*;
+import adt.*;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Applicant {
     double expectedSalary;
     String status;
     Date dateApplied;
+    
+    private ListInterface<ApplicantSkill> skillList;
 
     public Applicant(String name, int age, String email, String skills, String location, String desiredJobType, int experience, double expectedSalary, Date dateApplied) {
         this.applicantID = String.format("A%03d", idCounter++);
@@ -36,6 +39,7 @@ public class Applicant {
         this.expectedSalary = expectedSalary;
         this.status = "pending";
         this.dateApplied = dateApplied;
+        this.skillList = new DoublyLinkedList<>();
     }
 
     public String getApplicantID() {
@@ -126,9 +130,17 @@ public class Applicant {
         this.dateApplied = dateApplied;
     }
 
+    public void addSkill(ApplicantSkill skill) {
+        skillList.add(skill);
+    }
+
+    public ListInterface<ApplicantSkill> getSkillList() {
+        return skillList;
+    }
+    
     @Override
     public String toString() {
-        return "ApplicantManagementEntity{" + "applicantID=" + applicantID + ", name=" + name + ", age=" + age + ", email=" + email + ", skills=" + skills + ", location=" + location + ", desiredJobType=" + desiredJobType + ", experience=" + experience + ", expectedSalary=" + expectedSalary + ", status=" + status + ", dateApplied=" + dateApplied + '}';
+        return "ApplicantManagementEntity{" + "applicantID=" + applicantID + ", name=" + name + ", age=" + age + ", email=" + email + ", skills=" + skills + ", location=" + location + ", desiredJobType=" + desiredJobType + ", experience=" + experience + ", expectedSalary=" + expectedSalary + ", status=" + status + ", dateApplied=" + dateApplied + " Skills=" + skillList + '}';
     }
 
 }

@@ -16,6 +16,7 @@ public class Job implements Comparable<Job> {
     private String company;
     private String location;
     private LocalDate dateRelease; // Automatically stores the creation date
+    private ListInterface<JobRequirement> requirementList;
 
     public Job(String title, String description, String jobType, double salaryRange, String company, String location) {
         this.jobId = String.format("J%03d", idCounter++);
@@ -26,6 +27,7 @@ public class Job implements Comparable<Job> {
         this.company = company;
         this.location = location;
         this.dateRelease = LocalDate.now(); // Automatically set to current date
+        this.requirementList = new DoublyLinkedList<>();
     }
 
     // Getter and Setter Methods
@@ -52,6 +54,14 @@ public class Job implements Comparable<Job> {
 
     public LocalDate getDateRelease() { return dateRelease; }
 
+    public void addRequirement(JobRequirement req) {
+        requirementList.add(req);
+    }
+
+    public ListInterface<JobRequirement> getRequirementList() {
+        return requirementList;
+    }
+    
     @Override
     public String toString() {
         return "Job ID: " + jobId + "\n" +
@@ -61,7 +71,9 @@ public class Job implements Comparable<Job> {
                String.format("Salary: %.2f\n", salaryRange) +
                "Company: " + company + "\n" +
                "Location: " + location + "\n" +
-               "Date Released: " + dateRelease + "\n";
+               "Date Released: " + dateRelease + 
+               "Requirement: " + requirementList + 
+               "\n";
     }
 
     @Override

@@ -16,7 +16,10 @@ C:\Users\jians\Documents\GitHub\dsa1\src\main\java\dao\ApplicationInitializer.ja
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\dao\InterviewInitializer.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\dao\JobInitializer.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\Applicant.java
+C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\ApplicantSkill.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\Application.java
+C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\Company.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\Interview.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\Job.java
+C:\Users\jians\Documents\GitHub\dsa1\src\main\java\entity\JobRequirement.java
 C:\Users\jians\Documents\GitHub\dsa1\src\main\java\utility\Screen.java

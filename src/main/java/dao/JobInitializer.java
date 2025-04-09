@@ -12,6 +12,7 @@ package dao;
 import adt.DoublyLinkedList;
 import adt.ListInterface;
 import entity.Job;
+import entity.JobRequirement;
 
 public class JobInitializer {
     // Static list to store job postings (accessible by DAO)
@@ -20,8 +21,19 @@ public class JobInitializer {
     // Static block to initialize hardcoded job postings
     public ListInterface<Job> initializeJobs() {
         ListInterface<Job> jobList = new DoublyLinkedList<>();
-        jobList.add(new Job("Software Engineer", "Develop applications.", "Full-Time", 5000.00, "Tech Corp", "Kuala Lumpur"));
-        jobList.add(new Job("Data Analyst", "Analyze data trends.", "Contract", 4500.00, "Data Insights", "Penang"));
+        
+        Job j1 = new Job("Software Engineer", "Develop applications.", "Full-Time", 5000.00, "Tech Corp", "Kuala Lumpur");
+        j1.addRequirement(new JobRequirement("Java", "Advanced"));
+        j1.addRequirement(new JobRequirement("Python", "Intermediate"));
+
+        // Job 2
+        Job j2 = new Job("Data Analyst", "Analyze data trends.", "Contract", 4500.00, "Data Insights", "Penang");
+        j2.addRequirement(new JobRequirement("C++", "Intermediate"));
+        j2.addRequirement(new JobRequirement("SQL", "Advanced"));
+
+        jobList.add(j1);
+        jobList.add(j2);
+
         return jobList;
     }
     
