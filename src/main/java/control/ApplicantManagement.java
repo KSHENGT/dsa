@@ -20,17 +20,24 @@ import entity.Applicant;
 public class ApplicantManagement {
 
     ApplicantManagementUI appMgmtUI = new ApplicantManagementUI();
-    private ApplicantInitializer applicantInitializer = new ApplicantInitializer();
+    // private ApplicantInitializer applicantInitializer = new ApplicantInitializer();
     private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
 
 
     Scanner scanner = new Scanner(System.in);
 
-    public ApplicantManagement() {
-        applicantList = applicantInitializer.initializeApplicants();
+    public ApplicantManagement(ListInterface<Applicant> applicantList) {
+        this.applicantList = applicantList;
+        // applicantList = applicantInitializer.initializeApplicants();
     }
+    
     public static void main(String[] args) {
-        ApplicantManagement app = new ApplicantManagement();
+        ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
+        
+        ApplicantInitializer applicantInitializer = new ApplicantInitializer();
+        applicantList = applicantInitializer.initializeApplicants();
+        
+        ApplicantManagement app = new ApplicantManagement(applicantList);
         app.appMenu();
     }
 

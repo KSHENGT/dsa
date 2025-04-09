@@ -19,16 +19,19 @@ public class ApplicationManagement {
     private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
     private ListInterface<Application> applicationList = new DoublyLinkedList<>();
     
-    private JobInitializer jobInitializer = new JobInitializer();
-    private ApplicationInitializer applicationInitializer = new ApplicationInitializer();
     
     
-    public ApplicationManagement() {
-        applicationList = applicationInitializer.initializeApplications();
-        jobList = jobInitializer.initializeJobs();
+//    ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
+//    jobList = jobInitializer.initializeJobs();
+    
+    public ApplicationManagement(ListInterface<Applicant> applicantList) {
+        this.applicantList = applicantList;
+        ApplicationInitializer applicationInitializer = new ApplicationInitializer();
+        applicationList = applicationInitializer.initializeApplications(applicantList);
     }
     
     public void runApplicationManagement() {
+        System.out.println("Applicant:\n" + applicantList);
         int choice = 0;
         do {
             choice = applicationManagementUI.getMenuChoice();
@@ -55,8 +58,8 @@ public class ApplicationManagement {
         applicationManagementUI.listAllApplications(getAllApplications());
     }
     
-    public static void main(String[] args) {
-        ApplicationManagement applicationManagement = new ApplicationManagement();
-        applicationManagement.runApplicationManagement();
-    }
+//    public static void main(String[] args) {
+//        ApplicationManagement applicationManagement = new ApplicationManagement();
+//        applicationManagement.runApplicationManagement();
+//    }
 }

@@ -5,6 +5,9 @@
 package control;
 import boundary.*;
 import utility.Screen;
+import dao.*;
+import adt.*;
+import entity.*;
 
 /**
  *
@@ -13,9 +16,15 @@ import utility.Screen;
 public class MainController {
 
     MainUI mainUI = new MainUI();
-    ApplicantManagement app = new ApplicantManagement();
+    ListInterface<Applicant> applicantList = new ApplicantInitializer().initializeApplicants();
+    
+    ApplicantManagement app = new ApplicantManagement(applicantList);
+    ApplicationManagement application = new ApplicationManagement(applicantList);
+    
     
     public static void main(String[] args) {
+//        ApplicantInitializer applicantInitializer = new ApplicantInitializer();
+//        ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
         MainController Main = new MainController();
         Main.runMainController();
     }
@@ -34,6 +43,8 @@ public class MainController {
                 case 2:
                     break;
                 case 3:
+                    Screen.clearScreen();
+                    application.runApplicationManagement();
                     break;
                 case 4:
                     break;

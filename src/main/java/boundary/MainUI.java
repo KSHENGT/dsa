@@ -27,7 +27,7 @@ public class MainUI {
         int choice;
         System.out.println("\n1. Student Operations");
         System.out.println("2. Job Operations");
-        System.out.println("3. Matching Operation");
+        System.out.println("3. Application/Matching Operation");
         System.out.println("4. Interview Operation");
         System.out.println("5. Reports");
         System.out.println("0. Exit\n\n");
