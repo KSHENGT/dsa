@@ -11,10 +11,10 @@ import java.util.Date;
 
 public class InterviewInitializer {
     JobInitializer jobInitializer = new JobInitializer();
-    ApplicantInitializer applicantInitializer = new ApplicantInitializer();
+    Initializer applicantInitializer = new Initializer();  //changed
     
     ListInterface<Job> jobList = jobInitializer.initializeJobs();
-    ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
+    ListInterface<Applicant> applicantList = applicantInitializer.applicants;
 
     public ListInterface<Interview> initializeInterviews() {
         ListInterface<Interview> interviewList = new DoublyLinkedList<>();

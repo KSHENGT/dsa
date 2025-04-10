@@ -5,9 +5,7 @@
 package control;
 import boundary.*;
 import utility.Screen;
-import dao.*;
-import adt.*;
-import entity.*;
+import dao.Initializer;
 
 /**
  *
@@ -16,15 +14,11 @@ import entity.*;
 public class MainController {
 
     MainUI mainUI = new MainUI();
-    ListInterface<Applicant> applicantList = new ApplicantInitializer().initializeApplicants();
-    
-    ApplicantManagement app = new ApplicantManagement(applicantList);
-    ApplicationManagement application = new ApplicationManagement(applicantList);
-    
+    ApplicantManagement app = new ApplicantManagement();
+    //ApplicationManagement application = new ApplicationManagement();
     
     public static void main(String[] args) {
-//        ApplicantInitializer applicantInitializer = new ApplicantInitializer();
-//        ListInterface<Applicant> applicantList = applicantInitializer.initializeApplicants();
+        Initializer initializer = new Initializer();
         MainController Main = new MainController();
         Main.runMainController();
     }
@@ -38,13 +32,13 @@ public class MainController {
             switch (choice) {
                 case 1:
                     Screen.clearScreen();
-                    app.appMenu();
+                    app.RunApplicantController();
                     break;
                 case 2:
                     break;
                 case 3:
                     Screen.clearScreen();
-                    application.runApplicationManagement();
+                    //application.Menu();
                     break;
                 case 4:
                     break;

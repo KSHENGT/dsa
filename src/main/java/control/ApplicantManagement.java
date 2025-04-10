@@ -9,7 +9,7 @@ import java.util.*;
 import adt.ListInterface;
 import java.util.Scanner;
 import boundary.ApplicantManagementUI;
-import dao.ApplicantInitializer;
+import dao.Initializer;
 import utility.Screen;
 import entity.Applicant;
 
@@ -20,28 +20,19 @@ import entity.Applicant;
 public class ApplicantManagement {
 
     ApplicantManagementUI appMgmtUI = new ApplicantManagementUI();
-    // private ApplicantInitializer applicantInitializer = new ApplicantInitializer();
-    private ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
-
-
+    private ListInterface<Applicant> applicant = new DoublyLinkedList<>();
     Scanner scanner = new Scanner(System.in);
 
-    public ApplicantManagement(ListInterface<Applicant> applicantList) {
-        this.applicantList = applicantList;
-        // applicantList = applicantInitializer.initializeApplicants();
+    public ApplicantManagement() {
+        applicant = Initializer.applicants;
     }
     
     public static void main(String[] args) {
-        ListInterface<Applicant> applicantList = new DoublyLinkedList<>();
-        
-        ApplicantInitializer applicantInitializer = new ApplicantInitializer();
-        applicantList = applicantInitializer.initializeApplicants();
-        
-        ApplicantManagement app = new ApplicantManagement(applicantList);
-        app.appMenu();
+        ApplicantManagement app = new ApplicantManagement();
+        app.RunApplicantController();
     }
 
-    public void appMenu() {
+    public void RunApplicantController() {
         int choice;
         do {
             appMgmtUI.displayHeader("Applicant Management (Job Seeker)");
@@ -75,10 +66,13 @@ public class ApplicantManagement {
         appMgmtUI.displayHeader("Create Application");
         System.out.print("Enter name : ");
         String name = scanner.nextLine();
+        
+        System.out.print("Enter gender : ");
+        String gender = scanner.nextLine();
 
         System.out.print("Enter age : ");
         int age = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         System.out.print("Enter email (e.g., johndoe@example.com): ");
         String email = scanner.nextLine();
@@ -113,7 +107,7 @@ public class ApplicantManagement {
         }
 
         if (confirmation.equals("Y")) { 
-            applicantList.add(new Applicant(name, age, email, skills, location, jobType, experience, expectedSalary, new Date()));
+            applicant.add(new Applicant(name, gender, age, email, skills, location, jobType, experience, expectedSalary, new Date()));
             System.out.println("Applicant Created Successfully!");
         } else {
             System.out.println("Applicant Not Added.");
@@ -129,8 +123,8 @@ public class ApplicantManagement {
         Screen.clearScreen();
         boolean found = false;
 
-        for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
-            Applicant applicant = applicantList.getEntry(i);
+        for (int i = 1; i <= applicant.getNumberOfEntries(); i++) {
+            Applicant applicant = this.applicant.getEntry(i);
 
             if (applicant.getApplicantID().equals(id)) { // Find applicant by ID
                 found = true;
@@ -149,17 +143,15 @@ public class ApplicantManagement {
                 boolean keepUpdating = true;
                 while (keepUpdating) {
                     Screen.clearScreen();
+                    
                     // Display the current details
                     appMgmtUI.displayHeader("Current Applicant Details");
-                    System.out.printf("%-6s | %-22s | %-3s | %-26s | %-27s | %-15s | %-24s | %-5s | %-14s | %-8s | %-30s\n",
-                        "ID", "Name", "Age", "Email", "Skills", "Location", "Job Type", "Exp", "Salary", "Status", "Applied Date");
-                    System.out.println("-".repeat(214));
-
+                    appMgmtUI.displayApplicantTableHeader();
                     // Print selected applicant with temporary values
-                    System.out.printf("%-6s | %-22s | %-3d | %-26s | %-27s | %-15s | %-24s | %-5d | RM%-12.2f | %-8s | %-30s\n",
+                    System.out.printf("| %-6s | %-22s | %-3d | %-26s | %-27s | %-15s | %-24s | %-5d | RM%-12.2f | %-8s | %-30s |\n",
                         applicant.getApplicantID(), tempName, tempAge, tempEmail, tempSkills, tempLocation, tempJobType,
                         tempExperience, tempSalary, tempStatus, applicant.getDateApplied().toString());
-                    System.out.println("-".repeat(214));
+                    appMgmtUI.printSeparator();
 
                     // Ask user which field to update
                     System.out.println("\nWhich field do you want to update?");
@@ -167,7 +159,7 @@ public class ApplicantManagement {
                     System.out.println("0. Done Updating");
                     System.out.print("Enter your choice: ");
                     int choice = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); 
 
                     if (choice == 0) {
                         keepUpdating = false;
@@ -196,13 +188,11 @@ public class ApplicantManagement {
                 // Show final updated details for confirmation
                 Screen.clearScreen();
                 appMgmtUI.displayHeader("Final Updated Applicant Profile");
-                System.out.printf("%-6s | %-22s | %-3s | %-26s | %-27s | %-15s | %-24s | %-5s | %-14s | %-8s | %-30s\n",
-                    "ID", "Name", "Age", "Email", "Skills", "Location", "Job Type", "Exp", "Salary", "Status", "Applied Date");
-                System.out.println("-".repeat(214));
-                System.out.printf("%-6s | %-22s | %-3d | %-26s | %-27s | %-15s | %-24s | %-5d | RM%-12.2f | %-8s | %-30s\n",
+                appMgmtUI.displayApplicantTableHeader();
+                System.out.printf("| %-6s | %-22s | %-3d | %-26s | %-27s | %-15s | %-24s | %-5d | RM%-12.2f | %-8s | %-30s |\n",
                     applicant.getApplicantID(), tempName, tempAge, tempEmail, tempSkills, tempLocation, tempJobType,
                     tempExperience, tempSalary, tempStatus, applicant.getDateApplied().toString());
-                System.out.println("-".repeat(214));
+                appMgmtUI.printSeparator();
 
                 // Confirm update
                 System.out.print("Confirm update? (Y/N): ");
@@ -218,7 +208,7 @@ public class ApplicantManagement {
                     applicant.setExperience(tempExperience);
                     applicant.setExpectedSalary(tempSalary);
                     applicant.setStatus(tempStatus);
-                    applicantList.replace(i, applicant);
+                    this.applicant.replace(i, applicant);
                     System.out.println("Applicant profile updated successfully!");
                     Screen.pauseScreen();
                 } else {
@@ -235,7 +225,6 @@ public class ApplicantManagement {
         Screen.pauseScreen();
     }
 
-
     
     private void removeApplicantProfile() {
         Screen.clearScreen();
@@ -246,46 +235,21 @@ public class ApplicantManagement {
         boolean found = false;
 
         appMgmtUI.displayHeader("Remove Applicant Profile");
-        for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
-            Applicant applicant = applicantList.getEntry(i);
+        appMgmtUI.displayApplicantTableHeader();
+        for (int i = 1; i <= applicant.getNumberOfEntries(); i++) {
+            Applicant applicant = this.applicant.getEntry(i);
 
             if (applicant.getApplicantID().equals(id)) {
                 found = true;
-
-                int idWidth = 6, nameWidth = 22, ageWidth = 3, emailWidth = 26;
-                int skillsWidth = 27, locationWidth = 15, jobTypeWidth = 24, expWidth = 5;
-                int salaryWidth = 14, statusWidth = 8, dateWidth = 30;
-
-                String format = "| %-" + idWidth + "s | %-" + nameWidth + "s | %-" + ageWidth + "s | %-" + emailWidth + "s | %-"
-                              + skillsWidth + "s | %-" + locationWidth + "s | %-" + jobTypeWidth + "s | %-" + expWidth + "s | %-"
-                              + salaryWidth + "s | %-" + statusWidth + "s | %-" + dateWidth + "s |\n";
-
-                
-                System.out.printf(format, "ID", "Name", "Age", "Email", "Skills", "Location", "Job Type", "Exp", "Salary", "Status", "Applied Date");
-                System.out.println("-".repeat(214));
-
-                // Print selected applicant
-                System.out.printf(format,
-                    applicant.getApplicantID(),
-                    applicant.getName(),
-                    applicant.getAge(),
-                    applicant.getEmail(),
-                    applicant.getSkills(),
-                    applicant.getLocation(),
-                    applicant.getDesiredJobType(),
-                    applicant.getExperience(),
-                    "RM" + String.format("%.2f", applicant.getExpectedSalary()),
-                    applicant.getStatus(),
-                    applicant.getDateApplied().toString()
-                );
-                System.out.println("-".repeat(214));
+                appMgmtUI.displayApplicantTable(applicant);
+                appMgmtUI.printSeparator();
 
                 // Ask for confirmation
                 System.out.print("Are you sure you want to remove this applicant? (Y/N): ");
                 String confirm = scanner.nextLine().trim().toUpperCase();
 
                 if (confirm.equals("Y")) {
-                    applicantList.remove(i); // Corrected to remove from DAO list
+                    this.applicant.remove(i); // Corrected to remove from DAO list
                     System.out.println("Applicant removed successfully!\n");
                 } else {
                     System.out.println("Removal cancelled.");
@@ -315,45 +279,20 @@ public class ApplicantManagement {
         // Print centered header
         appMgmtUI.displayHeader("Applicant");
 
-        if (applicantList.getNumberOfEntries() == 0) {
+        if (applicant.getNumberOfEntries() == 0) {
             System.out.println("No applicants available.");
         } else {
-            int idWidth = 6, nameWidth = 22, ageWidth = 3, emailWidth = 26;
-            int skillsWidth = 27, locationWidth = 15, jobTypeWidth = 24, expWidth = 5;
-            int salaryWidth = 14, statusWidth = 8, dateWidth = 30;
-
-            // Print table header
-            String format = "| %-" + idWidth + "s | %-" + nameWidth + "s | %-" + ageWidth + "s | %-" + emailWidth + "s | %-"
-                          + skillsWidth + "s | %-" + locationWidth + "s | %-" + jobTypeWidth + "s | %-" + expWidth + "s | %-"
-                          + salaryWidth + "s | %-" + statusWidth + "s | %-" + dateWidth + "s |\n";
-
-            System.out.printf(format, "ID", "Name", "Age", "Email", "Skills", "Location", "Job Type", "Exp", "Salary", "Status", "Applied Date");
-            System.out.println("-".repeat(214));
+            appMgmtUI.displayApplicantTableHeader();
 
             // Print each applicant
-            for (int i = 1; i <= applicantList.getNumberOfEntries(); i++) {
-                Applicant applicant = applicantList.getEntry(i);
-                System.out.printf(format,
-                    applicant.getApplicantID(),
-                    applicant.getName(),
-                    applicant.getAge(),
-                    applicant.getEmail(),
-                    applicant.getSkills(),
-                    applicant.getLocation(),
-                    applicant.getDesiredJobType(),
-                    applicant.getExperience(),
-                    "RM" + String.format("%.2f", applicant.getExpectedSalary()),
-                    applicant.getStatus(),
-                    applicant.getDateApplied().toString()
-                );
+            for (int i = 1; i <= applicant.getNumberOfEntries(); i++) {
+                Applicant applicant = this.applicant.getEntry(i);
+                appMgmtUI.displayApplicantTable(applicant);
             }
-            System.out.println("-".repeat(214));
+            appMgmtUI.printSeparator();
         }
 
         Screen.pauseScreen();
     }
-
-
-
 
 }
